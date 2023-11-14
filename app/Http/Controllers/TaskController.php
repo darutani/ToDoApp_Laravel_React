@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Collection;
 
 class TaskController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Taskの一覧
+     *
+     * @return Collection
      */
-    public function index()
+    public function index(): Collection
     {
-        //
+        return Task::orderByDesc('id')->get();
     }
 
     /**
