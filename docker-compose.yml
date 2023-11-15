@@ -44,6 +44,8 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
             - dbdata:/var/lib/mysql
+            # init.sqlをマウントし、ボリュームを削除してもユーザーの権限が付与され続けるようにする
+            - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
         ports:
             - "3306:3306"
         networks:
