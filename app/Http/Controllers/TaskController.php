@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
@@ -21,14 +22,17 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Taskを登録する
+     *
+     * @param StoreTaskRequest $request
+     * @return JsonResponse
      */
-    public function store(StoreTaskRequest $request)
+    public function store(StoreTaskRequest $request): JsonResponse
     {
-        $tasks = Task::create($request->all());
+        $task = Task::create($request->all());
 
-        return $tasks
-            ? response()->json($tasks, 201)
+        return $task
+            ? response()->json($task, 201)
             : response()->json([], 500);
     }
 
@@ -41,18 +45,31 @@ class TaskController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     *  Taskを更新する
+     *
+     * @param UpdateTaskRequest $request
+     * @param Task $task
+     * @return JsonResponse
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task): JsonResponse
     {
-        //
+        $task->title = $request->title;
+
+        return $task->update()
+            ? response()->json($task)
+            : response()->json([], 500);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Taskを削除する
+     *
+     * @param Task $task
+     * @return JsonResponse
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task): JsonResponse
     {
-        //
+        return $task->delete()
+            ? response()->json($task)
+            : response()->json([], 500);
     }
 }

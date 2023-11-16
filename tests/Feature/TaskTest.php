@@ -15,7 +15,7 @@ class TaskTest extends TestCase
      *
      * @return void
      */
-    public function test_Taskの一覧を取得(): void
+    public function test_Taskの一覧を取得できる(): void
     {
         $tasks = Task::factory()->count(10)->create();
 
@@ -24,5 +24,60 @@ class TaskTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonCount($tasks->count());
+    }
+
+    /**
+     * storeアクションに接続した際にTaskデータが新規登録されること
+     *
+     * @return void
+     */
+    public function test_Taskを新規登録できる(): void
+    {
+        $data = [
+            'title' => '登録テスト'
+        ];
+        $response = $this->postJson('api/tasks', $data);
+
+        $response
+            ->assertCreated()
+            ->assertJsonFragment($data);
+    }
+
+    /**
+     * updateアクションに接続した際にTaskデータが更新されること
+     *
+     * @return void
+     */
+    public function test_Taskを更新できる(): void
+    {
+        $task = Task::factory()->create();
+
+        $task->title = '更新テスト';
+
+
+        $response = $this->patchJson("api/tasks/{$task->id}", $task->toArray());
+
+        // dd($response->json());
+
+        $response
+            ->assertOk()
+            ->assertJsonFragment($task->toArray());
+    }
+
+    /**
+     * deleteアクションに接続した際にTaskデータが削除されること
+     *
+     * @return void
+     */
+    public function test_Taskを削除できる(): void
+    {
+        $tasks = Task::factory()->count(10)->create();
+        $taskToDelete = $tasks->first();
+
+        $response = $this->deleteJson("api/tasks/{$taskToDelete->id}");
+        $response->assertOk();
+
+        $response = $this->getJson("api/tasks");
+        $response->assertJsonCount($tasks->count() -1);
     }
 }
