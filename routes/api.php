@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-ROute::apiResource('tasks', TaskController::class);
+Route::apiResource('tasks', TaskController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
