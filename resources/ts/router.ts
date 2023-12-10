@@ -1,23 +1,28 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-import home from "../vue/Home.vue"
-import detail from "../vue/Detail.vue"
+import { createRouter, createWebHistory } from 'vue-router';
+import home from "./vue/Home.vue"
+import login from "./vue/Login.vue"
+import help from "./vue/Help.vue"
 
 const routes = [
     {
         path: "/",
         component: home,
-        nam: "home",
+        name: "home",
     },
     {
-        path: "/detail/:todoId?",
-        component: detail,
-        name: "detail",
-        props: true,
+        path: "/login",
+        component: login,
+        name: "login",
+    },
+    {
+        path: "/help",
+        component: help,
+        name: "help",
     },
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(),
     routes: routes
 })
 
