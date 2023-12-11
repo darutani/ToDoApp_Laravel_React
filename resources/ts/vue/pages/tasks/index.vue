@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isLoading" class="Loader"></div>
+    <div v-if="isLoading" class="loader"></div>
     <div v-else-if="isError" class="align-center">データの読み込みに失敗しました。</div>
     <div v-else-if="!tasks || tasks.length <= 0" class="align-center">登録されたToDoはありません。</div>
     <div v-else>
@@ -64,7 +64,6 @@ import { ref } from "vue";
 import { onMounted } from "vue";
 import { useQuery } from 'vue-query';
 
-// const tasks = ref<Task[]>([]);
 
 type Task = {
     id: number,
@@ -74,24 +73,27 @@ type Task = {
     updated_at: Date,
 }
 
-// const getTasks = async () => {
-//     try {
-//         const { data } = await axios.get<Task[]>('/api/tasks');
-//         tasks.value = data;
-//         console.log(data);
-//     }
-//     catch(error) {
-//         console.log('APIエラー：', error);
-//     }
-// };
+// vue-queryを使用しない場合の記述方法↓
+/*
+const tasks = ref<Task[]>([]);
 
-// onMounted(() => {
-//     getTasks();
-// });
+const getTasks = async () => {
+    try {
+        const { data } = await axios.get<Task[]>('/api/tasks');
+        tasks.value = data;
+        console.log(data);
+    }
+    catch(error) {
+        console.log('APIエラー：', error);
+    }
+};
+
+onMounted(() => {
+    getTasks();
+});
+*/
 
 const fetchTasks = async () => {
-    // const { data } = await axios.get<Task[]>('/api/tasks');
-    // return data;
     try {
         const { data } = await axios.get<Task[]>('/api/tasks');
         return data;
