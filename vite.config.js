@@ -21,7 +21,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': '/resources/js', // エイリアス設定
+            '@': '/resources/ts', // エイリアス設定
         },
     },
     build: {
