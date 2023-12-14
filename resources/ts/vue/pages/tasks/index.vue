@@ -3,75 +3,17 @@
     <div v-else-if="isError" class="align-center">データの読み込みに失敗しました。</div>
     <div v-else-if="!tasks || tasks.length <= 0" class="align-center">登録されたToDoはありません。</div>
     <div v-else>
-        <form class="input-form">
-            <div class="inner">
-                <input type="text" class="input" placeholder="TODOを入力してください。" value="" />
-                <button class="btn is-primary">追加</button>
-            </div>
-        </form>
-        <div class="inner">
-            <ul class="task-list">
-                <li v-for="task in tasks" :key="task.id">
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <div><span>{{ task.title }}</span></div>
-                    <button class="btn is-delete">削除</button>
-                </li>
-                <li>
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <div><span>新しいTODO</span></div>
-                    <button class="btn is-delete">削除</button>
-                </li>
-                <li>
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <form><input type="text" class="input" value="編集中のTODO" /></form>
-                    <button class="btn">更新</button>
-                </li>
-                <li class="done">
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <div><span>実行したTODO</span></div>
-                    <button class="btn is-delete">削除</button>
-                </li>
-                <li>
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <div><span>ゴミ捨て</span></div>
-                    <button class="btn is-delete">削除</button>
-                </li>
-                <li>
-                    <label class="checkbox-label">
-                        <input type="checkbox" class="checkbox-input" />
-                    </label>
-                    <div><span>掃除</span></div>
-                    <button class="btn is-delete">削除</button>
-                </li>
-            </ul>
-        </div>
+        <TaskInput />
+        <TaskList :tasks="tasks" />
     </div>
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
-import { ref } from "vue";
-import { onMounted } from "vue";
-import { useQuery } from 'vue-query';
+import { useTasks } from "@/queries/TaskQuery";
+import TaskInput from './components/TaskInput.vue'
+import TaskList from './components/TaskList.vue'
 
-
-type Task = {
-    id: number,
-    title: string,
-    is_done: boolean,
-    created_at: Date,
-    updated_at: Date,
-}
+const { data: tasks, isLoading, isError } = useTasks()
 
 // vue-queryを使用しない場合の記述方法↓
 /*
@@ -93,16 +35,6 @@ onMounted(() => {
 });
 */
 
-const fetchTasks = async () => {
-    try {
-        const { data } = await axios.get<Task[]>('/api/tasks');
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-const { data: tasks, isLoading, isError } = useQuery('tasks', fetchTasks);
 </script>
 
 <style>
