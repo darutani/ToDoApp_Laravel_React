@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -69,6 +70,22 @@ class TaskController extends Controller
     public function destroy(Task $task): JsonResponse
     {
         return $task->delete()
+            ? response()->json($task)
+            : response()->json([], 500);
+    }
+
+    /**
+     * is_doneの更新
+     *
+     * @param Task $task
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateDone(Task $task, Request $request): JsonResponse
+    {
+        $task->is_done = $request->is_done;
+
+        return $task->update()
             ? response()->json($task)
             : response()->json([], 500);
     }
