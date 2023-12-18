@@ -6,7 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^1.1.2",
+        "axios": "^1.6.2",
         "laravel-vite-plugin": "^0.8.0",
         "sass": "^1.69.5",
         "vite": "^4.0.0"
@@ -18,6 +18,6 @@
         "vue": "^3.2.36",
         "vue-query": "^1.26.0",
         "vue-router": "^4.2.5",
-        "vuetify": "^3.4.4"
+        "vue3-toastify": "^0.1.14"
     }
 }
