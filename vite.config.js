@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import vuetify from 'vite-plugin-vuetify';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default defineConfig({
@@ -17,7 +16,6 @@ export default defineConfig({
         }),
         vue(), // Vueプラグイン
         vueJsx(), // Vue 3 JSXサポート
-        vuetify(), // Vuetifyプラグイン
     ],
     resolve: {
         alias: {
