@@ -9,7 +9,16 @@ const fetchTasks = async () => {
 
 const updateDoneTask = async ({ id, is_done }: Task) => {
     const response = await axios.patch(
-        `/api/task/update-done/${id}`,
+        `/api/tasks/update-done/${id}`,
+        { is_done: !is_done }
+    )
+    const data = response.data as Task;
+    return data;
+}
+
+const createTask = async ({ title }: Task) => {
+    const response = await axios.post(
+        `/api/task/`,
         { is_done: !is_done }
     )
     const data = response.data as Task;

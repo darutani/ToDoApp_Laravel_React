@@ -16,7 +16,7 @@ use App\Http\Controllers\API\TodoController;
 |
 */
 Route::apiResource('tasks', TaskController::class);
-Route::patch('task/update-done/{task}', [TaskController::class, 'updateDone']);
+Route::patch('tasks/update-done/{task}', [TaskController::class, 'updateDone']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
