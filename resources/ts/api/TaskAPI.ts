@@ -1,8 +1,22 @@
 import { Task } from "@/types/Task";
 import axios from 'axios';
 
-export const fetchTasks = async () => {
+const fetchTasks = async () => {
     const response = await axios.get('/api/tasks');
     const data = response.data as Task[];
     return data;
+}
+
+const updateDoneTask = async ({ id, is_done }: Task) => {
+    const response = await axios.patch(
+        `/api/task/update-done/${id}`,
+        { is_done: !is_done }
+    )
+    const data = response.data as Task;
+    return data;
+}
+
+export {
+    fetchTasks,
+    updateDoneTask,
 }
