@@ -25,4 +25,5 @@ app.mount('#app');
 app.use(Vue3Toastify, {
     autoClose: 3000,
     hideProgressBar: true,
+    theme: "colored",
   } as ToastContainerOptions);
