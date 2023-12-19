@@ -16,10 +16,10 @@ const updateDoneTask = async ({ id, is_done }: Task) => {
     return data;
 }
 
-const createTask = async ({ title }: Task) => {
+const createTask = async (title: string) => {
     const response = await axios.post(
-        `/api/task/`,
-        { is_done: !is_done }
+        `/api/tasks/`,
+        { title: title }
     )
     const data = response.data as Task;
     return data;
@@ -28,4 +28,5 @@ const createTask = async ({ title }: Task) => {
 export {
     fetchTasks,
     updateDoneTask,
+    createTask,
 }

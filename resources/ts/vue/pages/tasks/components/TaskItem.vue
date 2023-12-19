@@ -19,7 +19,6 @@ const props = defineProps<{
 const updateDoneTask = useUpdateDoneTask();
 
 const handleDoneChange = (task: Task) => {
-    console.log('task: ', task);
     updateDoneTask.mutate(task)
 }
 </script>

@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from 'vue-query';
 import * as api from "@/api/TaskAPI";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { AxiosError } from "axios";
 
 const useTasks = () => {
     return useQuery('tasks', () => api.fetchTasks());
@@ -15,9 +16,32 @@ const useUpdateDoneTask = () => {
             queryClient.invalidateQueries('tasks')
         },
         onError: () => {
-            toast.error('更新に失敗しました。', {
-                "theme": "colored",
-            })
+            toast.error('更新に失敗しました')
+        }
+    })
+}
+
+const useCreateTask = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation(api.createTask, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks')
+            toast.success('登録に成功しました')
+        },
+        onError: (error: AxiosError) => {
+            console.log(error.response?.data)
+            if (error.response?.data.errors) {
+                Object.values(error.response?.data.errors).map(
+                    (messages: any) => {
+                        messages.map((message: string) => {
+                            toast.error(message)
+                        })
+                    }
+                )
+            } else {
+                toast.error('登録に失敗しました')
+            }
         }
     })
 }
@@ -25,4 +49,5 @@ const useUpdateDoneTask = () => {
 export {
     useTasks,
     useUpdateDoneTask,
+    useCreateTask,
 }
