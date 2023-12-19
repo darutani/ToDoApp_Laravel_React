@@ -10,8 +10,5 @@ COPY package*.json ./
 # 依存関係をインストール
 RUN npm install
 
-# TypeScriptをグローバルにインストール（必要に応じて）
-RUN npm install -g typescript
-
 # アプリケーションのソースコードをコンテナにコピー
 COPY . .
