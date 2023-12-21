@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { Task } from "@/types/Task";
-import { useUpdateDoneTask } from "@/queries/TaskQuery";
+import { useUpdateDoneTask, useUpdateTask, useDeleteTask } from "@/queries/TaskQuery";
 
 const props = defineProps<{
     task: Task;
