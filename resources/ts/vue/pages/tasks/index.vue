@@ -1,9 +1,9 @@
 <template>
+    <TaskInput />
     <div v-if="isLoading" class="loader"></div>
     <div v-else-if="isError" class="align-center">データの読み込みに失敗しました。</div>
     <div v-else-if="!tasks || tasks.length <= 0" class="align-center">登録されたToDoはありません。</div>
     <div v-else>
-        <TaskInput />
         <TaskList :tasks="tasks" />
     </div>
 </template>
