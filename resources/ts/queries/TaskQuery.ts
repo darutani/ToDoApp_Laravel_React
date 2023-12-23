@@ -54,7 +54,6 @@ const useUpdateTask = () => {
             toast.success('更新に成功しました')
         },
         onError: (error: AxiosError) => {
-            console.log(error.response?.data)
             if (error.response?.data.errors) {
                 Object.values(error.response?.data.errors).map(
                     (messages: any) => {
@@ -64,7 +63,7 @@ const useUpdateTask = () => {
                     }
                 )
             } else {
-                toast.error('登録に失敗しました')
+                toast.error('更新に失敗しました')
             }
         }
     })
