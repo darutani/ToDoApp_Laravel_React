@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         \DB::table('users')->insert([
             [
                 'name' => 'admin',
-                'email' => 'admin@examplec.com',
+                'email' => 'admin@example.com',
                 'email_verified_at' => now(),
                 'password' => \Hash::make('123456789'),
                 'created_at' => now(),
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'yamada',
-                'email' => 'yamada@examplec.com',
+                'email' => 'yamada@example.com',
                 'email_verified_at' => now(),
                 'password' => \Hash::make('123456789'),
                 'created_at' => now(),
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'tanaka',
-                'email' => 'tanaka@examplec.com',
+                'email' => 'tanaka@example.com',
                 'email_verified_at' => now(),
                 'password' => \Hash::make('123456789'),
                 'created_at' => now(),
