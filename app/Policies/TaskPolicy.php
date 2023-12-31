@@ -5,9 +5,25 @@ namespace App\Policies;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class TaskPolicy
 {
+    /**
+     * ログインユーザー以外のタスクを編集できないようにするためのポリシー
+     *
+     * @param User $user ユーザー
+     * @param Task $task タスク
+     * @return bool
+     */
+    public function checkUser(User $user, Task $task): bool
+    {
+        if ($user->id === $task->user_id) {
+            return true;
+        }
+    }
+
+
     /**
      * Determine whether the user can view any models.
      */
