@@ -16,9 +16,12 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $user_id = fake()->numberBetween(1,3);
+
         return [
-            'title' => fake()->realText(rand(15,40)),
+            'title' => $user_id . '：' . fake()->realText(rand(15,40)),
             'is_done' => fake()->boolean(10),
+            'user_id' => fake()->numberBetween(1,3),
             'created_at' => now(),
             'updated_at' => now(),
         ];
