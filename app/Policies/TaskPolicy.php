@@ -4,8 +4,6 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Log;
 
 class TaskPolicy
 {
@@ -22,7 +20,6 @@ class TaskPolicy
             return true;
         }
     }
-
 
     /**
      * Determine whether the user can view any models.

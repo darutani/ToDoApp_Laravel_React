@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class TaskTest extends TestCase
 {
@@ -43,7 +43,7 @@ class TaskTest extends TestCase
     public function test_Taskを新規登録できる(): void
     {
         $data = [
-            'title' => '登録テスト'
+            'title' => '登録テスト',
         ];
         $response = $this->postJson('api/tasks', $data);
 
@@ -55,7 +55,7 @@ class TaskTest extends TestCase
     public function test_タイトルが空の場合は実行できない(): void
     {
         $data = [
-            'title' => ''
+            'title' => '',
         ];
         $response = $this->postJson('api/tasks', $data);
         // dd($response->json());
@@ -63,14 +63,14 @@ class TaskTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'title' => 'タイトルは必ず指定してください。'
+                'title' => 'タイトルは必ず指定してください。',
             ]);
     }
 
     public function test_タイトルが256文字以上の場合には登録できない(): void
     {
         $data = [
-            'title' => str_repeat('あ', 256)
+            'title' => str_repeat('あ', 256),
         ];
         $response = $this->postJson('api/tasks', $data);
         // dd($response->json());
@@ -78,7 +78,7 @@ class TaskTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'title' => 'タイトルは、255文字以下で指定してください。'
+                'title' => 'タイトルは、255文字以下で指定してください。',
             ]);
     }
 
@@ -92,7 +92,6 @@ class TaskTest extends TestCase
         $task = Task::factory()->create();
 
         $task->title = '更新テスト';
-
 
         $response = $this->patchJson("api/tasks/{$task->id}", $task->toArray());
 
@@ -116,7 +115,7 @@ class TaskTest extends TestCase
         $response = $this->deleteJson("api/tasks/{$taskToDelete->id}");
         $response->assertOk();
 
-        $response = $this->getJson("api/tasks");
-        $response->assertJsonCount($tasks->count() -1);
+        $response = $this->getJson('api/tasks');
+        $response->assertJsonCount($tasks->count() - 1);
     }
 }

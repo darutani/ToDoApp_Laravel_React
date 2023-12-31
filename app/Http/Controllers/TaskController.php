@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('can:checkUser,task')->only([
-            'updateDone', 'update', 'destroy'
+            'updateDone', 'update', 'destroy',
         ]);
     }
 
@@ -38,7 +38,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request): JsonResponse
     {
         $request->merge([
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ]);
 
         $task = Task::create($request->all());
