@@ -1,14 +1,14 @@
 <template>
     <div class="login-page">
         <div class="login-panel">
-            <form>
+            <form @submit.prevent="handleLogin">
                 <div class="input-group">
                     <label>メールアドレス</label>
-                    <input type="email" class="input" />
+                    <input type="email" class="input" v-model="inputEmail" />
                 </div>
                 <div class="input-group">
                     <label>パスワード</label>
-                    <input type="password" class="input" />
+                    <input type="password" class="input" v-model="inputPassword" />
                 </div>
                 <button type="submit" class="btn">ログイン</button>
             </form>
@@ -17,7 +17,18 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { useLogin } from "@/queries/AuthQuery";
+import { ref } from "vue";
+
+const inputEmail = ref('admin@example.com');
+const inputPassword = ref('123456789');
+
+const login = useLogin();
+
+const handleLogin = () => {
+    login.mutate({ email: inputEmail.value, password: inputPassword.value })
+}
 </script>
 
 <style>
